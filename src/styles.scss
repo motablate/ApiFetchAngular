@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { align-items: center; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  mat-list-item {
+    margin-bottom: 16px;
+    height: MAX-CONTENT !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  mat-card-header {
+    color: rgb(255, 255, 255);
+    background-image: linear-gradient(rgb(250, 245, 245), rgb(114, 33, 180));
+  }
+  .dashboard-card-number{
+    color: rgb(255, 255, 255);
+    margin: 35px 0 16px !important;
+  }
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  

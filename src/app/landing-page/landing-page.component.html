@@ -1,0 +1,70 @@
+<div class="dashboard-container">
+  <mat-card class="dashboard-header">
+    <mat-card-content>
+      <form [formGroup]="asteroidForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Date" id="date" formControlName="date" [value]="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Rechercher</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="dashboard-card">
+    <mat-card-header>
+      <mat-card-title>Nombre total d'astéroïdes</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="dashboard-card-content">
+        <h1 class="dashboard-card-number">{{ asteroids.length }}</h1>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="dashboard-card">
+    <mat-card-header>
+      <mat-card-title>Diamètre minimum</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="dashboard-card-content">
+        <h1 class="dashboard-card-number">{{ smallestDiameter }} km</h1>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="dashboard-card">
+    <mat-card-header>
+      <mat-card-title>Diamètre maximum</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="dashboard-card-content">
+        <h1 class="dashboard-card-number">{{ largestDiameter }} km</h1>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="dashboard-list">
+  <mat-card cols="5" class="dashboard-list">
+    <mat-card-header>
+      <mat-card-title>Liste des astéroïdes proches de la Terre le {{ date }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="list-container">
+        <div class="spinner-container" *ngIf="isLoading">
+          <mat-spinner diameter="50"></mat-spinner>
+        </div>
+        <div *ngIf="!isLoading && asteroids.length > 0">
+          <mat-list>
+            <mat-list-item *ngFor="let asteroid of asteroids">
+              <h3 matLine>{{ asteroid.name }}</h3>
+              <p matLine>Diamètre : {{ asteroid.estimated_diameter.kilometers.estimated_diameter_min }} - {{ asteroid.estimated_diameter.kilometers.estimated_diameter_max }} km</p>
+              <p matLine>Distance de la Terre : {{ asteroid.close_approach_data[0].miss_distance.kilometers }} km</p>
+              <p matLine>Vitesse relative : {{ asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour }} km/h</p>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </div>
+        <div class="no-data-message" *ngIf="!isLoading && asteroids.length === 0"> Aucune donnée disponible pour cette date </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
